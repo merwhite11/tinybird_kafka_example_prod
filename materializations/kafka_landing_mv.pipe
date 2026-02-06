@@ -1,0 +1,13 @@
+DESCRIPTION >
+    Materialized view to aggregate kafka_landing data by hour
+
+NODE aggregate_by_hour
+SQL >
+    SELECT 
+        toStartOfHour(now()) as hour,
+        countState() as event_count
+    FROM kafka_landing
+    GROUP BY hour
+
+TYPE materialized
+DATASOURCE kafka_landing_mv_target

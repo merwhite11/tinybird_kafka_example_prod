@@ -1,0 +1,13 @@
+DESCRIPTION >
+    Endpoint to query aggregated kafka_landing statistics
+
+NODE endpoint_query
+SQL >
+    SELECT 
+        hour,
+        countMerge(event_count) as total_events
+    FROM kafka_landing_mv_target
+    GROUP BY hour
+    ORDER BY hour DESC
+
+TYPE endpoint

@@ -1,0 +1,16 @@
+DESCRIPTION >
+    Materialized view to aggregate water meter metrics by hour and meter_id
+
+NODE aggregate_meter_metrics_0
+SQL >
+    SELECT 
+        toStartOfHour(timestamp) as hour,
+        meter_id,
+        avgState(flow_rate) as avg_flow_rate,
+        avgState(temperature) as avg_temperature,
+        countState() as reading_count
+    FROM kafka_landing_parsed
+    GROUP BY hour, meter_id
+
+TYPE materialized
+DATASOURCE kafka_landing_parsed_mv_target
