@@ -1,0 +1,15 @@
+DESCRIPTION >
+    Kafka landing datasource using mw_kafka_water_meter connection
+
+SCHEMA >
+    `meter_id` Int32 `json:$.meter_id`,
+    `timestamp` DateTime `json:$.timestamp`,
+    `flow_rate` Float32 `json:$.flow_rate`,
+    `temperature` Float32 `json:$.temperature`
+
+ENGINE "MergeTree"
+
+KAFKA_CONNECTION_NAME mw_kafka_water_meter
+KAFKA_TOPIC kafka_landing_topic
+KAFKA_GROUP_ID {{ tb_secret("KAFKA_GROUP_ID", "water_meters_group") }}
+KAFKA_AUTO_OFFSET_RESET earliest
