@@ -1,0 +1,16 @@
+DESCRIPTION >
+    Endpoint to query aggregated water meter statistics by hour and meter
+
+NODE endpoint_query
+SQL >
+    SELECT 
+        hour,
+        meter_id,
+        avgMerge(avg_flow_rate) as avg_flow_rate,
+        avgMerge(avg_temperature) as avg_temperature,
+        countMerge(reading_count) as total_readings
+    FROM kafka_landing_parsed_mv_target
+    GROUP BY hour, meter_id
+    ORDER BY hour DESC, meter_id
+
+TYPE endpoint

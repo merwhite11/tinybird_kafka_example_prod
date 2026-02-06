@@ -1,0 +1,13 @@
+DESCRIPTION >
+    Target datasource for kafka_landing_parsed materialized view with aggregated water meter metrics
+
+SCHEMA >
+    `hour` DateTime,
+    `meter_id` Int32,
+    `avg_flow_rate` AggregateFunction(avg, Float32),
+    `avg_temperature` AggregateFunction(avg, Float32),
+    `reading_count` AggregateFunction(count, UInt64)
+
+ENGINE "AggregatingMergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(hour)"
+ENGINE_SORTING_KEY "meter_id, hour"
