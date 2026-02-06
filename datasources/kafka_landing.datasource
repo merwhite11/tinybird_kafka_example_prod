@@ -7,6 +7,6 @@ SCHEMA >
 ENGINE "MergeTree"
 
 KAFKA_CONNECTION_NAME mw_kafka_water_meter
-KAFKA_TOPIC kafka_landing_topic
+KAFKA_TOPIC water_meters_topic
 KAFKA_GROUP_ID {{ tb_secret("KAFKA_GROUP_ID", "water_meters_group") }}
 KAFKA_AUTO_OFFSET_RESET earliest
