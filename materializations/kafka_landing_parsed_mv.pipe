@@ -1,7 +1,7 @@
 DESCRIPTION >
     Materialized view to aggregate water meter metrics by hour and meter_id
 
-NODE aggregate_meter_metrics
+NODE aggregate_meter_metrics_0
 SQL >
     SELECT 
         toStartOfHour(timestamp) as hour,
